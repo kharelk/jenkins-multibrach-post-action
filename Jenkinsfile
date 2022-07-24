@@ -110,7 +110,6 @@ spec:
         }
         unstable {
             echo 'unstable :/'
-            if
             echo "unstable stage name: ${unstable_stage}"
         }
         failure {
