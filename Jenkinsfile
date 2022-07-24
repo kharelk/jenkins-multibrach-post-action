@@ -92,17 +92,16 @@ spec:
             // echo "unstable stage name: ${unstable_stage}"
             // sh 'pwd'
             // sh 'git log'
-            
+
             // sh 'git reset --hard HEAD~1'
             // sh 'git push -f origin main'
-            steps {
                 script{
                     echo 'unstable :/'
                     echo "unstable stage name: ${unstable_stage}"
                     sh 'pwd'
                     sh 'git log'
                 }
-            }
+            
         }
         failure {
             echo 'failed :('
