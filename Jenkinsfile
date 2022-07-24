@@ -64,6 +64,7 @@ spec:
                     sh 'echo stage 4'
                     unstable(message: "${STAGE_NAME} is unstable")                   
                     unstable_stage = env.STAGE_NAME    
+                    sh 'pwd'
                     sh 'git log'
                 }
             }
