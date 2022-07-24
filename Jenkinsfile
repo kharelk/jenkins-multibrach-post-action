@@ -62,7 +62,7 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
-                    // unstable(message: "${STAGE_NAME} is unstable")                   
+                    unstable(message: "${STAGE_NAME} is unstable")                   
                     unstable_stage = env.STAGE_NAME    
                 }
             }
