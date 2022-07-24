@@ -61,28 +61,9 @@ spec:
         stage('stage-4') {
             steps {
                 script{
-                    //unstable_stage = env.STAGE_NAME
                     sh 'echo stage 4'
-                    // sh 'ls' 
-                    unstable(message: "${STAGE_NAME} is unstable")
-                    // catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') 
-                    //error 'STAGE UNSTABLE'
-                    
-                    unstable_stage = env.STAGE_NAME
-                    
-                    // statusCode = sh script:script, returnStatus:true
-
-                    // if(statusCode == 2) {
-                    //         //error 'STAGE UNSTABLE'
-                    //         // unstable_stage = env.STAGE_NAME
-                    //         sh 'echo catch the statuscode if'
-                    // }
-
-                        
-                    // } else if(statusCode == 1) {
-                    //     FAILED_STAGE = env.STAGE_NAME
-                        
-                    // }
+                    // unstable(message: "${STAGE_NAME} is unstable")                   
+                    unstable_stage = env.STAGE_NAME    
                 }
             }
         }
