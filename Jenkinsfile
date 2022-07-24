@@ -88,6 +88,7 @@ spec:
         unstable {
             echo 'unstable :/'
             echo "unstable stage name: ${unstable_stage}"
+            sh 'git checkout main'
             sh 'git reset --hard HEAD~1'
             sh 'git push -f origin main'
         }
