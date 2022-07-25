@@ -1,8 +1,12 @@
-// Uses Declarative syntax to run commands inside a container.
-pipeline {
-    agent {
-        kubernetes {
-            yaml '''
+#!/bin/groovy
+
+def call() {
+    def slack_user_id = ''
+
+    pipeline {
+        agent {
+            kubernetes {
+                yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -90,17 +94,28 @@ spec:
         unstable {
             // echo 'unstable :/'
             // echo "unstable stage name: ${unstable_stage}"
-            // sh 'pwd'
-            // sh 'git log'
-
             // sh 'git reset --hard HEAD~1'
             // sh 'git push -f origin main'
-                script{
-                    echo 'unstable :/'
-                    echo "unstable stage name: ${unstable_stage}"
-                    sh 'pwd'
-                    sh 'git log'
-                }
+            script{
+                echo 'unstable :/'
+                echo "unstable stage name: ${unstable_stage}"
+                sh 'pwd'
+                sh 'git log'
+
+                // notification.slackClusterUpdated(
+                //     services: pipelineConfiguration.services,
+                //     environment: environment,
+                //     deployState: "Failed and the realease_candidate deployment was triggered for the staging env  \
+                //     \nFailed on ${FAILED_STAGE} Stage",
+                //     commitAuthorName: commitAuthorName,
+                //     shortCommitHash: shortCommitHash,
+                //     slackChannelName: "jenkins_deployments_be"
+                // )
+
+
+                userId = slackUserIdFromEmail('harel.karavani@checkmarx.com')
+                slackSend(color: "good", message: "<@$userId> Message from Jenkins Pipeline")
+            }
             
         }
         failure {
@@ -108,4 +123,5 @@ spec:
             echo "Failed stage name: ${FAILED_STAGE}"
         }
     }
+}
 }
