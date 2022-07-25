@@ -96,7 +96,7 @@ spec:
                 echo 'unstable :/'
                 echo "unstable stage name: ${unstable_stage}"
                 sh 'pwd'
-                sh 'git log'
+                // sh 'git log'
 
                 // notification.slackClusterUpdated(
                 //     services: pipelineConfiguration.services,
