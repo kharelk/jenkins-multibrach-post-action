@@ -145,7 +145,7 @@
 
 
 
-#!/bin/groovy
+// #!/bin/groovy
 
 def call() {
     def slack_user_id = ''
