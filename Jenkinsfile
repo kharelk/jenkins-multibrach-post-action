@@ -29,6 +29,10 @@ spec:
         }
     environment {
             CI = true
+            stage-1_status = ''
+            stage-2_status = ''
+            stage-3_status = ''
+            stage-4_status = ''
         }
     stages {
         stage('stage-1') {
@@ -37,6 +41,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 1'
                     sh 'ls'   
+                    stage-1_status = 'pass'
                 }
             }
         }
@@ -46,6 +51,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 2'
                     sh 'ls'   
+                    stage-2_status = 'pass'
                 }
             }
         }
@@ -54,7 +60,8 @@ spec:
                 script{
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 3'
-                    sh 'ls'   
+                    sh 'ls'
+                    stage-3_status = 'pass'
                 }
             }
         }
@@ -66,6 +73,18 @@ spec:
                     unstable_stage = env.STAGE_NAME    
                     sh 'pwd'
                     sh 'git log'
+                    stage-4_status = 'pass'
+                }
+            }
+        }
+        stage('check-stages-status') {
+            steps {
+                script{
+                    if (stage-1_status ==~ 'pass' || stage-2_status ==~ 'pass' 
+                        || stage-3_status ==~ 'pass' || stage-4_status ==~ 'pass') {
+                            sh 'git reset --hard HEAD~1'
+                            sh 'git push -f origin main'
+                        }
                 }
             }
         }
@@ -74,7 +93,7 @@ spec:
                 script{
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 5'
-                    sh 'ls'   
+                    sh 'ls'
                 }
             }
         }
@@ -95,7 +114,7 @@ spec:
             script{
                 echo 'unstable :/'
                 echo "unstable stage name: ${unstable_stage}"
-                sh 'pwd'
+                // sh 'pwd'
                 // sh 'git log'
 
                 // notification.slackClusterUpdated(
@@ -108,10 +127,10 @@ spec:
                 //     slackChannelName: "jenkins_deployments_be"
                 // )
 
-                def userIds = slackUserIdsFromCommitters()
-                def userIdsString = userIds.collect { "<@$it>" }.join(' ')
-                // userId = slackUserIdFromEmail('harel.karavani@checkmarx.com')
-                slackSend(color: "good", message: "<@$userIdsString> Message from Jenkins Pipeline")
+                // def userIds = slackUserIdsFromCommitters()
+                // def userIdsString = userIds.collect { "<@$it>" }.join(' ')
+                // // userId = slackUserIdFromEmail('harel.karavani@checkmarx.com')
+                // slackSend(color: "good", message: "<@$userIdsString> Message from Jenkins Pipeline")
             }
             
         }
