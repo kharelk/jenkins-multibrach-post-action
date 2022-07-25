@@ -29,6 +29,7 @@ spec:
         }
     environment {
             CI = true
+            stageResults = [:]
             STAGE_ONE_STATUS = ''
             STAGE_TWO_STATUS = ''
             STAGE_THREE_STATUS = ''
@@ -70,10 +71,25 @@ spec:
                 script{
                     sh 'echo stage 4'
                     unstable(message: "${STAGE_NAME} is unstable")                   
-                    unstable_stage = env.STAGE_NAME    
-                    sh 'pwd'
-                    sh 'git log'
-                    STAGE_FOUR_STATUS = 'pass'
+                    // unstable_stage = env.STAGE_NAME    
+                    // sh 'pwd'
+                    // sh 'git log'
+                    // STAGE_FOUR_STATUS = 'pass'
+
+
+                    try {
+                    // do stuff
+                    // Add to map as SUCCESS on successful execution 
+                    stageResults."{STAGE_NAME}" = "SUCCESS"
+                    } catch (Exception e) {
+                        // Set the result and add to map as UNSTABLE on failure
+                        unstable("[ERROR]: ${STAGE_NAME} failed!")
+                        currentBuild.result = "SUCCESS"
+                        stageResult."{STAGE_NAME}" = "UNSTABLE"
+                    }
+                    if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
+                        sh 'stage ${STAGE_NAME} is unstable'
+                    }
                 }
             }
         }
