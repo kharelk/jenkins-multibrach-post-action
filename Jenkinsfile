@@ -108,9 +108,10 @@ spec:
                 //     slackChannelName: "jenkins_deployments_be"
                 // )
 
-
-                userId = slackUserIdFromEmail('harel.karavani@checkmarx.com')
-                slackSend(color: "good", message: "<@$userId> Message from Jenkins Pipeline")
+                def userIds = slackUserIdsFromCommitters()
+                def userIdsString = userIds.collect { "<@$it>" }.join(' ')
+                // userId = slackUserIdFromEmail('harel.karavani@checkmarx.com')
+                slackSend(color: "good", message: "<@$userIdsString> Message from Jenkins Pipeline")
             }
             
         }
