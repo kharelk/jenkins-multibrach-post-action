@@ -29,10 +29,10 @@ spec:
         }
     environment {
             CI = true
-            STAGE-1_STATUS = ''
-            STAGE-2_STATUS = ''
-            STAGE-3_STATUS = ''
-            STAGE-4_STATUS = ''
+            STAGE_ONE_STATUS = ''
+            STAGE_TWO_STATUS = ''
+            STAGE_THREE_STATUS = ''
+            STAGE_FOUR_STATUS = ''
         }
     stages {
         stage('stage-1') {
@@ -41,7 +41,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 1'
                     sh 'ls'   
-                    STAGE-1_STATUS = 'pass'
+                    STAGE_ONE_STATUS = 'pass'
                 }
             }
         }
@@ -51,7 +51,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 2'
                     sh 'ls'   
-                    STAGE-2_STATUS = 'pass'
+                    STAGE_TWO_STATUS = 'pass'
                 }
             }
         }
@@ -61,7 +61,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 3'
                     sh 'ls'
-                    STAGE-3_STATUS = 'pass'
+                    STAGE_THREE_STATUS = 'pass'
                 }
             }
         }
@@ -73,15 +73,15 @@ spec:
                     unstable_stage = env.STAGE_NAME    
                     sh 'pwd'
                     sh 'git log'
-                    STAGE-4_STATUS = 'pass'
+                    STAGE_FOUR_STATUS = 'pass'
                 }
             }
         }
         stage('check-stages-status') {
             steps {
                 script{
-                    if (STAGE-1_STATUS ==~ 'pass' || STAGE-2_STATUS ==~ 'pass' 
-                        || STAGE-3_STATUS ==~ 'pass' || STAGE-4_STATUS ==~ 'pass') {
+                    if (STAGE_ONE_STATUS ==~ 'pass' || STAGE_TWO_STATUS ==~ 'pass' 
+                        || STAGE_THREE_STATUS ==~ 'pass' || STAGE_FOUR_STATUS ==~ 'pass') {
                             sh 'git reset --hard HEAD~1'
                             sh 'git push -f origin main'
                         }
