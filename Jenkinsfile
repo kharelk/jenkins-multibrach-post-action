@@ -29,10 +29,10 @@ spec:
         }
     environment {
             CI = true
-            stage-1_status = ''
-            stage-2_status = ''
-            stage-3_status = ''
-            stage-4_status = ''
+            STAGE-1_STATUS = ''
+            STAGE-2_STATUS = ''
+            STAGE-3_STATUS = ''
+            STAGE-4_STATUS = ''
         }
     stages {
         stage('stage-1') {
@@ -41,7 +41,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 1'
                     sh 'ls'   
-                    stage-1_status = 'pass'
+                    STAGE-1_STATUS = 'pass'
                 }
             }
         }
@@ -51,7 +51,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 2'
                     sh 'ls'   
-                    stage-2_status = 'pass'
+                    STAGE-2_STATUS = 'pass'
                 }
             }
         }
@@ -61,7 +61,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 3'
                     sh 'ls'
-                    stage-3_status = 'pass'
+                    STAGE-3_STATUS = 'pass'
                 }
             }
         }
@@ -73,15 +73,15 @@ spec:
                     unstable_stage = env.STAGE_NAME    
                     sh 'pwd'
                     sh 'git log'
-                    stage-4_status = 'pass'
+                    STAGE-4_STATUS = 'pass'
                 }
             }
         }
         stage('check-stages-status') {
             steps {
                 script{
-                    if (stage-1_status ==~ 'pass' || stage-2_status ==~ 'pass' 
-                        || stage-3_status ==~ 'pass' || stage-4_status ==~ 'pass') {
+                    if (STAGE-1_STATUS ==~ 'pass' || STAGE-2_STATUS ==~ 'pass' 
+                        || STAGE-3_STATUS ==~ 'pass' || STAGE-4_STATUS ==~ 'pass') {
                             sh 'git reset --hard HEAD~1'
                             sh 'git push -f origin main'
                         }
