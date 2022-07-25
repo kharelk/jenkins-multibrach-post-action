@@ -29,7 +29,7 @@ spec:
         }
     environment {
             CI = true
-            stageResults = [:]
+            def stageResults = [:]
             STAGE_ONE_STATUS = ''
             STAGE_TWO_STATUS = ''
             STAGE_THREE_STATUS = ''
