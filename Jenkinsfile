@@ -80,8 +80,14 @@ spec:
         stage('check-stages-status') {
             steps {
                 script{
-                    if (STAGE_ONE_STATUS ==~ 'pass' || STAGE_TWO_STATUS ==~ 'pass' 
-                        || STAGE_THREE_STATUS ==~ 'pass' || STAGE_FOUR_STATUS ==~ 'pass') {
+                    if (STAGE_ONE_STATUS != 'pass' || STAGE_TWO_STATUS != 'pass' 
+                        || STAGE_THREE_STATUS != 'pass' || STAGE_FOUR_STATUS != 'pass') {
+                            // Preparing Git
+                            sh 'git config user.email "no-reply@codebashing-jenkins.com"'
+                            sh 'git config user.name "Jenkins Server"'
+                            
+                            //Rervert one commit back
+                            sh 'git fetch origin main'
                             sh 'git reset --hard HEAD~1'
                             sh 'git push -f origin main'
                         }
