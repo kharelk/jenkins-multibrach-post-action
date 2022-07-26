@@ -80,8 +80,8 @@ tty: true
                     try {
                     // do stuff
                     // Add to map as SUCCESS on successful execution 
-                        sh 'echo stage 4'
-                        unstable(message: "${STAGE_NAME} is unstable")     
+                        sh 'ecsfho stage 4'
+                        // unstable(message: "${STAGE_NAME} is unstable")     
                         stageResults."{STAGE_NAME}" = "SUCCESS"
                     } catch (Exception e) {
                         // Set the result and add to map as UNSTABLE on failure
