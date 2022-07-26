@@ -161,7 +161,7 @@ tty: true
         }
         failure {
             echo 'failed :('
-            echo "Failed stage name: ${FAILED_STAGE}"
+            // echo "Failed stage name: ${FAILED_STAGE}"
         }
     }
 }
