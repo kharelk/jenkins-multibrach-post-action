@@ -69,28 +69,28 @@ tty: true
         stage('stage-4') {
             steps {
                 script{
-                    // sh 'echo stage 4'
+                    sh 'echo stage 4'
                     // unstable(message: "${STAGE_NAME} is unstable")                   
                     // unstable_stage = env.STAGE_NAME    
                     // sh 'pwd'
                     // sh 'git log'
                     // STAGE_FOUR_STATUS = 'pass'
 
-                    try {
-                        // do stuff
-                        // Add to map as SUCCESS on successful execution 
-                        sh 'ecsfho stage 4'                        
-                        stageResults."{STAGE_NAME}" = "SUCCESS"
-                    } catch (Exception e) {
-                        // Set the result and add to map as UNSTABLE on failure
-                        unstable("[ERROR]: ${STAGE_NAME} failed!")
-                        currentBuild.result = "SUCCESS"
-                        stageResult."{STAGE_NAME}" = "UNSTABLE"
-                    }
-                    if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
-                        sh 'echo stage-4 is unstable'
-                    }
-                    sh 'echo stage-4 is stageResult."{STAGE_NAME}"?.value'
+                    // try {
+                    //     // do stuff
+                    //     // Add to map as SUCCESS on successful execution 
+                    //     sh 'ecsfho stage 4'                        
+                    //     stageResults."{STAGE_NAME}" = "SUCCESS"
+                    // } catch (Exception e) {
+                    //     // Set the result and add to map as UNSTABLE on failure
+                    //     unstable("[ERROR]: ${STAGE_NAME} failed!")
+                    //     currentBuild.result = "SUCCESS"
+                    //     stageResult."{STAGE_NAME}" = "UNSTABLE"
+                    // }
+                    // if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
+                    //     sh 'echo stage-4 is unstable'
+                    // }
+                    // sh 'echo stage-4 is stageResult."{STAGE_NAME}"?.value'
 
                 }
             }
@@ -98,6 +98,7 @@ tty: true
         stage('check-stages-status') {
             steps {
                 script{
+                    sh 'echo stage check-stages-status'
                 //     if (STAGE_ONE_STATUS != 'pass' || STAGE_TWO_STATUS != 'pass' 
                 //         || STAGE_THREE_STATUS != 'pass' || STAGE_FOUR_STATUS != 'pass') {
                 //             // Preparing Git
