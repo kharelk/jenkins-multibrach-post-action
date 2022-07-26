@@ -32,8 +32,9 @@ tty: true
             STAGE_TWO_STATUS = ''
             STAGE_THREE_STATUS = ''
             STAGE_FOUR_STATUS = ''
-            def slack_user_id = ''
-            def stageResults = [:]
+            // def slack_user_id = ''
+            // def stageResults = [:]
+
         }
     stages {
         stage('stage-1') {
@@ -76,22 +77,20 @@ tty: true
                     // sh 'git log'
                     // STAGE_FOUR_STATUS = 'pass'
 
-                    // try {
-                    //     // do stuff
-                    //     // Add to map as SUCCESS on successful execution 
-                    //     sh 'ecsfho stage 4'                        
-                    //     stageResults."{STAGE_NAME}" = "SUCCESS"
-                    // } catch (Exception e) {
-                    //     // Set the result and add to map as UNSTABLE on failure
-                    //     unstable("[ERROR]: ${STAGE_NAME} failed!")
-                    //     currentBuild.result = "SUCCESS"
-                    //     stageResult."{STAGE_NAME}" = "UNSTABLE"
-                    // }
-                    // if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
-                    //     sh 'echo stage-4 is unstable'
-                    // }
-                    // sh 'echo stage-4 is stageResult."{STAGE_NAME}"?.value'
-
+                    try {
+                        // do stuff
+                        // Add to map as SUCCESS on successful execution 
+                        sh 'ecsfho stage 4'                        
+                        STAGE_FOUR_STATUS = "SUCCESS"
+                    } catch (Exception e) {
+                        // Set the result and add to map as UNSTABLE on failure
+                        unstable("[ERROR]: ${STAGE_NAME} failed!")
+                        currentBuild.result = "SUCCESS"
+                        STAGE_FOUR_STATUS = "UNSTABLE"
+                    }
+                    if(STAGE_FOUR_STATUS == "UNSTABLE") {
+                        sh 'echo stage-4 is unstable\n do stuff for unstable'
+                    }
                 }
             }
         }
@@ -111,6 +110,7 @@ tty: true
                 //             sh 'git push -f origin main'
                 //         }
                 // }
+                }
             }
         }
         stage('stage-5') {
@@ -165,7 +165,7 @@ tty: true
         }
     }
 }
-}
+
 
 
 
