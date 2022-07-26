@@ -88,28 +88,32 @@ tty: true
                         unstable("[ERROR]: ${STAGE_NAME} failed!")
                         currentBuild.result = "SUCCESS"
                         stageResult."{STAGE_NAME}" = "UNSTABLE"
+
                     }
-                    if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
+                    if(stageResults.find{ it.key == "{STAGE_NAME}" } == "UNSTABLE") {
                         sh 'echo stage ${STAGE_NAME} is unstable'
                     }
+
+                    sh 'echo stageResult."{STAGE_NAME}"'
+
                 }
             }
         }
         stage('check-stages-status') {
             steps {
                 script{
-                    if (STAGE_ONE_STATUS != 'pass' || STAGE_TWO_STATUS != 'pass' 
-                        || STAGE_THREE_STATUS != 'pass' || STAGE_FOUR_STATUS != 'pass') {
-                            // Preparing Git
-                            sh 'git config user.email "no-reply@codebashing-jenkins.com"'
-                            sh 'git config user.name "Jenkins Server"'
+                //     if (STAGE_ONE_STATUS != 'pass' || STAGE_TWO_STATUS != 'pass' 
+                //         || STAGE_THREE_STATUS != 'pass' || STAGE_FOUR_STATUS != 'pass') {
+                //             // Preparing Git
+                //             sh 'git config user.email "no-reply@codebashing-jenkins.com"'
+                //             sh 'git config user.name "Jenkins Server"'
                             
-                            //Rervert one commit back
-                            sh 'git fetch origin main'
-                            sh 'git reset --hard HEAD~1'
-                            sh 'git push -f origin main'
-                        }
-                }
+                //             //Rervert one commit back
+                //             sh 'git fetch origin main'
+                //             sh 'git reset --hard HEAD~1'
+                //             sh 'git push -f origin main'
+                //         }
+                // }
             }
         }
         stage('stage-5') {
