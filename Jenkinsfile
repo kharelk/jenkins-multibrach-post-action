@@ -76,6 +76,7 @@ tty: true
                     // sh 'git log'
                     // STAGE_FOUR_STATUS = 'pass'
 
+                    sh 'echo sdfddddssasaaaaaaaaaaaaaaaaaaaljadslflsdfajskld'
 
                     try {
                     // do stuff
