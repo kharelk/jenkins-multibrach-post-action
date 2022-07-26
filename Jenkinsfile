@@ -87,6 +87,8 @@ spec:
                         unstable("[ERROR]: ${STAGE_NAME} failed!")
                         currentBuild.result = "SUCCESS"
                         STAGE_FOUR_STATUS = "UNSTABLE"
+                        echo 'stage-4 is ${STAGE_FOUR_STATUS}, do stuff for unstable pipeline'
+
                     }
                     if(STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is ${STAGE_FOUR_STATUS}, do stuff for unstable pipeline'
