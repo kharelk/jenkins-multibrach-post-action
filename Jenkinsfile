@@ -32,6 +32,7 @@ spec:
             STAGE_TWO_STATUS = ''
             STAGE_THREE_STATUS = ''
             STAGE_FOUR_STATUS = ''
+            unstable_stage = ''
             // def slack_user_id = ''
             // def stageResults = [:]
 
@@ -76,7 +77,7 @@ spec:
                     // sh 'pwd'
                     // sh 'git log'
                     // STAGE_FOUR_STATUS = 'pass'
-
+                    unstable_stage = ${STAGE_NAME}
                     try {
                         // do stuff
                         // Add to map as SUCCESS on successful execution 
@@ -140,7 +141,7 @@ spec:
             // sh 'git push -f origin main'
             script{
                 echo 'unstable :/'
-                // echo "unstable stage name: ${unstable_stage}"
+                echo "unstable stage name: ${unstable_stage}"
                 // sh 'pwd'
                 // sh 'git log'
 
