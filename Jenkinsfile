@@ -69,8 +69,8 @@ tty: true
         stage('stage-4') {
             steps {
                 script{
-                    sh 'echo stage 4'
-                    unstable(message: "${STAGE_NAME} is unstable")                   
+                    // sh 'echo stage 4'
+                    // unstable(message: "${STAGE_NAME} is unstable")                   
                     // unstable_stage = env.STAGE_NAME    
                     // sh 'pwd'
                     // sh 'git log'
@@ -80,7 +80,9 @@ tty: true
                     try {
                     // do stuff
                     // Add to map as SUCCESS on successful execution 
-                    stageResults."{STAGE_NAME}" = "SUCCESS"
+                        sh 'echo stage 4'
+                        unstable(message: "${STAGE_NAME} is unstable")     
+                        stageResults."{STAGE_NAME}" = "SUCCESS"
                     } catch (Exception e) {
                         // Set the result and add to map as UNSTABLE on failure
                         unstable("[ERROR]: ${STAGE_NAME} failed!")
