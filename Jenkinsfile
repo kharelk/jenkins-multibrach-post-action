@@ -126,7 +126,7 @@ tty: true
     post {
         always {
             echo 'post always - will always happens'
-            deleteDir() /* clean up our workspace */
+            // deleteDir() /* clean up our workspace */
         }
         success {
             echo 'succeeded!'
