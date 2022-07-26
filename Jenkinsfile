@@ -88,7 +88,7 @@ tty: true
                         stageResult."{STAGE_NAME}" = "UNSTABLE"
                     }
                     if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
-                        sh 'stage ${STAGE_NAME} is unstable'
+                        sh 'echo stage ${STAGE_NAME} is unstable'
                     }
                 }
             }
