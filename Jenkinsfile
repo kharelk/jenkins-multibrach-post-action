@@ -76,26 +76,21 @@ tty: true
                     // sh 'git log'
                     // STAGE_FOUR_STATUS = 'pass'
 
-                    sh 'echo sdfddddssasaaaaaaaaaaaaaaaaaaaljadslflsdfajskld'
-
                     try {
-                    // do stuff
-                    // Add to map as SUCCESS on successful execution 
-                        sh 'ecsfho stage 4'
-                        // unstable(message: "${STAGE_NAME} is unstable")     
+                        // do stuff
+                        // Add to map as SUCCESS on successful execution 
+                        sh 'ecsfho stage 4'                        
                         stageResults."{STAGE_NAME}" = "SUCCESS"
                     } catch (Exception e) {
                         // Set the result and add to map as UNSTABLE on failure
                         unstable("[ERROR]: ${STAGE_NAME} failed!")
                         currentBuild.result = "SUCCESS"
                         stageResult."{STAGE_NAME}" = "UNSTABLE"
-
                     }
-                    if(stageResults.find{ it.key == "{STAGE_NAME}" } == "UNSTABLE") {
-                        sh 'echo stage ${STAGE_NAME} is unstable'
+                    if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
+                        sh 'echo stage-4 is unstable'
                     }
-
-                    sh 'echo stageResult."{STAGE_NAME}"'
+                    sh 'echo stage-4 is stageResult."{STAGE_NAME}"?.value'
 
                 }
             }
@@ -142,7 +137,7 @@ tty: true
             // sh 'git push -f origin main'
             script{
                 echo 'unstable :/'
-                echo "unstable stage name: ${unstable_stage}"
+                // echo "unstable stage name: ${unstable_stage}"
                 // sh 'pwd'
                 // sh 'git log'
 
