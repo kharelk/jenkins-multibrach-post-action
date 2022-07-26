@@ -5,20 +5,20 @@ pipeline {
 apiVersion: v1
 kind: Pod
 metadata:
-labels:
-jenkins: slave
+  labels:
+    jenkins: slave
 spec:
-containers:
-- name: node
-image: node:14
-command:
-- cat
-tty: true
-- name: python
-image: python:3.6.10-slim-stretch
-command:
-- cat
-tty: true
+  containers:
+  - name: node
+    image: node:14
+    command:
+    - cat
+    tty: true
+  - name: python
+    image: python:3.6.10-slim-stretch
+    command:
+    - cat
+    tty: true
 '''
         }
     }
