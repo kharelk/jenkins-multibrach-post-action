@@ -77,7 +77,7 @@ spec:
                     // sh 'pwd'
                     // sh 'git log'
                     // STAGE_FOUR_STATUS = 'pass'
-                    unstable_stage = ${STAGE_NAME}
+                    unstable_stage =env.STAGE_NAME 
                     try {
                         // do stuff
                         // Add to map as SUCCESS on successful execution 
