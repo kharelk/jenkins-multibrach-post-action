@@ -92,7 +92,7 @@ spec:
 
                     }
                     if(STAGE_FOUR_STATUS == "UNSTABLE") {
-                        echo 'stage-4 is '+ ${unstable_stage} + ', do stuff for unstable pipeline'
+                        echo 'stage-4 is '+ env.STAGE_NAME + ', do stuff for unstable pipeline'
                     }
                 }
             }
