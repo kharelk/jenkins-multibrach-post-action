@@ -89,7 +89,7 @@ spec:
                         echo 'stage-4 is ${STAGE_FOUR_STATUS}, do stuff for unstable pipeline'
 
                     }
-                    if(STAGE_FOUR_STATUS == "UNSTABLE") {
+                    // if(STAGE_FOUR_STATUS == "UNSTABLE") {
                     if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS + ', do stuff for unstable pipeline'
                     }
