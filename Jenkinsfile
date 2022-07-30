@@ -76,20 +76,20 @@ spec:
                     try {
 
                         sh 'ecsfho stage 4'                        
-                        // STAGE_FOUR_STATUS = "SUCCESS"
+                        STAGE_FOUR_STATUS = "SUCCESS"
                         stageResults."{STAGE_NAME}" = "SUCCESS"
 
                     } catch (Exception e) {
                         unstable("[ERROR]: ${STAGE_NAME} failed!")
                         currentBuild.result = "SUCCESS"
-                        // STAGE_FOUR_STATUS = "UNSTABLE"
+                        STAGE_FOUR_STATUS = "UNSTABLE"
                         
                         stageResult."{STAGE_NAME}" = "UNSTABLE"
 
                         echo 'stage-4 is ${STAGE_FOUR_STATUS}, do stuff for unstable pipeline'
 
                     }
-                    // if(STAGE_FOUR_STATUS == "UNSTABLE") {
+                    if(STAGE_FOUR_STATUS == "UNSTABLE") {
                     if(stageResults.find{ it.key == "{STAGE_NAME}" }?.value == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS + ', do stuff for unstable pipeline'
                     }
