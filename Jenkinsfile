@@ -1,8 +1,8 @@
 
-stageResults = [:]
 
 
 pipeline {
+stageResults = [:]
     agent {
         kubernetes {
             yaml '''
