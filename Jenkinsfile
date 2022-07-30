@@ -1,7 +1,3 @@
-
-def stageResults = [:]
-
-
 pipeline {
     agent {
         kubernetes {
@@ -37,6 +33,7 @@ spec:
             STAGE_THREE_STATUS = ''
             STAGE_FOUR_STATUS = ''
             unstable_stage = ''
+            def stageResults = [:]
         }
     stages {
         stage('stage-1') {
