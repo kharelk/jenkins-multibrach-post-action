@@ -70,52 +70,40 @@ spec:
                 script{
                     sh 'echo stage 4'
 
-                    // def repoUrlWithAuth = "https://kharelk:<PASSWORD>@github.com/kharelk/jenkins-multibrach-post-action.git"
-                    def sourceBranch = "main"
-
                     try {
-                        sh 'ecsfho stage 4'                        
+                        sh 'ecsfho stage 4'
                         STAGE_FOUR_STATUS = "SUCCESS"
                     } catch (Exception e) {
                         unstable("[ERROR]: ${STAGE_NAME} UNSTABLE!")
                         currentBuild.result = "SUCCESS"
                         STAGE_FOUR_STATUS = "UNSTABLE"
+                        unstable_stage = env.STAGE_NAME
                     }
                     //test 6dsdfsdfsdf
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-                        // echo 'git checkout branch main...'
+                        echo 'git checkout branch main...'
+                        
+                        repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
+                        sourceBranch = "main"
                         
                         checkout([
                             $class: 'GitSCM',
                             branches: [[name: "refs/heads/" + sourceBranch]],
-                            userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: "https://github.com/kharelk/jenkins-multibrach-post-action"]],
-                            // extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']]
+                            userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                         ])
-                        // git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
-
-                        // echo 'Reverting 1 commit back...'
-                        // sh 'git checkout main'
-                        // sh 'git reset --hard HEAD~1'
-                        // echo 'push to main'
-                        // sh 'git push -f origin main'
-                        // // sh 'git push origin HEAD:main'
-                        // // sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
-                        // echo 'Revert done!'
-
 
                         withCredentials([usernamePassword(
                         credentialsId: 'harel-github-creadentials',
                         passwordVariable: 'TOKEN',
                         usernameVariable: 'USER')]) {
-                        
-                        echo 'Reverting 1 commit back...'
-                        sh 'git checkout main'
-                        sh 'git reset --hard HEAD~1'
-                        echo 'push to main'
-                        // sh 'git push -f origin main'
-                        sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
-                        echo 'Revert done!'
+                            echo 'Reverting 1 commit back...'
+                            sh 'git checkout main'
+                            sh 'git reset --hard HEAD~1'
+                            echo 'push to main'
+                            // sh 'git push -f origin main'
+                            sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
+                            echo 'Revert done!'
                         }
                     }
 
@@ -142,13 +130,9 @@ spec:
             echo 'succeeded!'
         }
         unstable {
-            // echo 'unstable :/'
-            // echo "unstable stage name: ${unstable_stage}"
-            // sh 'git reset --hard HEAD~1'
-            // sh 'git push -f origin main'
             script{
                 echo 'unstable :/'
-                echo "unstable stage name: ${STAGE_FOUR_STATUS}"
+                echo "unstable stage name: ${unstable_stage}"
             }
             
         }
