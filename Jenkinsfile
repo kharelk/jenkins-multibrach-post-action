@@ -69,6 +69,8 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
+                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
+                    def sourceBranch = "main"
                     
                     try {
                         sh 'ecsfho stage 4'                        
@@ -81,10 +83,11 @@ spec:
                     // if(STAGE_FOUR_STATUS == "UNSTABLE") {
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-                        echo 'Revert 1 commit back'
+                        echo 'Reverting 1 commit back...'
                         sh 'git reset --hard HEAD~1'
                         // sh 'git push -f origin main'
-                        sh 'git push origin HEAD:main'
+                        // sh 'git push origin HEAD:main'
+                        sh 'git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}'
                         echo 'Revert done!'
                     }
                 }
