@@ -83,7 +83,8 @@ spec:
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         echo 'Revert 1 commit back'
                         sh 'git reset --hard HEAD~1'
-                        sh 'git push -f origin main'
+                        // sh 'git push -f origin main'
+                        sh 'git push origin HEAD:main'
                         echo 'Revert done!'
                     }
                 }
