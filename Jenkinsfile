@@ -72,7 +72,7 @@ spec:
 
                     def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
                     def sourceBranch = "main"
-                    
+
                     try {
                         sh 'ecsfho stage 4'                        
                         STAGE_FOUR_STATUS = "SUCCESS"
@@ -88,7 +88,7 @@ spec:
                         checkout([
                             $class: 'GitSCM',
                             branches: [[name: "refs/heads/" + sourceBranch]],
-                            userRemoteConfigs: [[credentialsId: harel-github-creadentials, url: "https://github.com/kharelk/jenkins-multibrach-post-action"]],
+                            userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: "https://github.com/kharelk/jenkins-multibrach-post-action"]],
                             // extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']]
                         ])
                         // git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
