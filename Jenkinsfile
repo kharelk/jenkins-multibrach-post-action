@@ -70,7 +70,7 @@ spec:
                 script{
                     sh 'echo stage 4'
 
-                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
+                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
                     def sourceBranch = "main"
 
                     try {
