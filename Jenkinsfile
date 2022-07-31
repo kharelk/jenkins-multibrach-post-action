@@ -79,7 +79,7 @@ spec:
                         STAGE_FOUR_STATUS = "UNSTABLE"
                         unstable_stage = env.STAGE_NAME
                     }
-                    //test 6dsdfsdfsdf
+                    // test unstable
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         echo 'git checkout branch main...'
