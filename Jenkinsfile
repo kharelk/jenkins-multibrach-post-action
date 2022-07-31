@@ -69,7 +69,7 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
-                    
+
                     def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
                     def sourceBranch = "main"
                     
@@ -81,7 +81,6 @@ spec:
                         currentBuild.result = "SUCCESS"
                         STAGE_FOUR_STATUS = "UNSTABLE"
                     }
-                    // if(STAGE_FOUR_STATUS == "UNSTABLE") {
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         // echo 'git checkout branch main...'
