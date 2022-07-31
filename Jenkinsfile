@@ -91,7 +91,7 @@ spec:
                         echo 'push to main'
                         // sh 'git push -f origin main'
                         // sh 'git push origin HEAD:main'
-                        sh 'git push -f --repo='+ ${repoUrlWithAuth} +' --set-upstream ' + ${repoUrlWithAuth} + ${sourceBranch}
+                        sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
                         echo 'Revert done!'
                     }
                 }
