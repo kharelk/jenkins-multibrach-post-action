@@ -96,14 +96,30 @@ spec:
                         ])
                         // git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
 
+                        // echo 'Reverting 1 commit back...'
+                        // sh 'git checkout main'
+                        // sh 'git reset --hard HEAD~1'
+                        // echo 'push to main'
+                        // sh 'git push -f origin main'
+                        // // sh 'git push origin HEAD:main'
+                        // // sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
+                        // echo 'Revert done!'
+
+
+                        withCredentials([usernamePassword(
+                        credentialsId: 'harel-github-creadentials',
+                        passwordVariable: 'TOKEN',
+                        usernameVariable: 'USER')]) {
+                        
                         echo 'Reverting 1 commit back...'
                         sh 'git checkout main'
                         sh 'git reset --hard HEAD~1'
                         echo 'push to main'
-                        sh 'git push -f origin main'
-                        // sh 'git push origin HEAD:main'
-                        // sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
+                        // sh 'git push -f origin main'
+                        sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
+ 
                         echo 'Revert done!'
+                        }
                     }
 
                     
