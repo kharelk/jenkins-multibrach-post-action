@@ -83,11 +83,15 @@ spec:
                     // if(STAGE_FOUR_STATUS == "UNSTABLE") {
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
+                        echo 'git checkout branch main...'
+                        git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
+
                         echo 'Reverting 1 commit back...'
                         sh 'git reset --hard HEAD~1'
-                        // sh 'git push -f origin main'
+                        echo 'push to main'
+                        sh 'git push -f origin main'
                         // sh 'git push origin HEAD:main'
-                        sh 'git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}'
+                        // sh 'git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}'
                         echo 'Revert done!'
                     }
                 }
