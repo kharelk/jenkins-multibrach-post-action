@@ -89,9 +89,9 @@ spec:
                         echo 'Reverting 1 commit back...'
                         sh 'git reset --hard HEAD~1'
                         echo 'push to main'
-                        sh 'git push -f origin main'
+                        // sh 'git push -f origin main'
                         // sh 'git push origin HEAD:main'
-                        // sh 'git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}'
+                        git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}
                         echo 'Revert done!'
                     }
                 }
