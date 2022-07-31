@@ -70,7 +70,7 @@ spec:
                 script{
                     sh 'echo stage 4'
 
-                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
+                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
                     def sourceBranch = "main"
 
                     try {
@@ -97,10 +97,12 @@ spec:
                         sh 'git checkout main'
                         sh 'git reset --hard HEAD~1'
                         echo 'push to main'
-                        sh 'git push -f origin main'
+                        // sh 'git push -f origin main'
                         // sh 'git push origin HEAD:main'
-                        // sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
+                        sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
                         echo 'Revert done!'
+                    }
+
                     }
                 }
             }
@@ -139,4 +141,8 @@ spec:
             // echo "Failed stage name: ${FAILED_STAGE}"
         }
     }
+}
+stage('git push') {
+    steps {
+
 }
