@@ -103,7 +103,7 @@ spec:
                         echo 'Revert done!'
                     }
 
-                    }
+                    
                 }
             }
         }
@@ -141,8 +141,4 @@ spec:
             // echo "Failed stage name: ${FAILED_STAGE}"
         }
     }
-}
-stage('git push') {
-    steps {
-
 }
