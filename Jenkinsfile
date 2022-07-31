@@ -70,7 +70,7 @@ spec:
                 script{
                     sh 'echo stage 4'
 
-                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
+                    // def repoUrlWithAuth = "https://kharelk:<PASSWORD>@github.com/kharelk/jenkins-multibrach-post-action.git"
                     def sourceBranch = "main"
 
                     try {
@@ -81,7 +81,7 @@ spec:
                         currentBuild.result = "SUCCESS"
                         STAGE_FOUR_STATUS = "UNSTABLE"
                     }
-                    //test 6
+                    //test 6d
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         // echo 'git checkout branch main...'
@@ -97,9 +97,9 @@ spec:
                         sh 'git checkout main'
                         sh 'git reset --hard HEAD~1'
                         echo 'push to main'
-                        // sh 'git push -f origin main'
+                        sh 'git push -f origin main'
                         // sh 'git push origin HEAD:main'
-                        sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
+                        // sh "git push -f --repo=${repoUrlWithAuth} --set-upstream ${repoUrlWithAuth} ${sourceBranch}"
                         echo 'Revert done!'
                     }
 
