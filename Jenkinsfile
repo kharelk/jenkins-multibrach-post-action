@@ -94,6 +94,7 @@ spec:
                         // git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
 
                         echo 'Reverting 1 commit back...'
+                        sh 'git checkout main'
                         sh 'git reset --hard HEAD~1'
                         echo 'push to main'
                         sh 'git push -f origin main'
