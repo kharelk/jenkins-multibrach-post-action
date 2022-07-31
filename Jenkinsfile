@@ -85,8 +85,6 @@ spec:
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         // echo 'git checkout branch main...'
-                        sh 'git config --global credential.helper cache'
-                        sh 'git config --global push.default simple'
                         
                         checkout([
                             $class: 'GitSCM',
@@ -117,7 +115,6 @@ spec:
                         echo 'push to main'
                         // sh 'git push -f origin main'
                         sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
- 
                         echo 'Revert done!'
                         }
                     }
