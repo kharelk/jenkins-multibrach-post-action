@@ -69,7 +69,8 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
-                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
+                    
+                    def repoUrlWithAuth = "https://kharelk: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@github.com/kharelk/jenkins-multibrach-post-action.git"
                     def sourceBranch = "main"
                     
                     try {
@@ -83,8 +84,8 @@ spec:
                     // if(STAGE_FOUR_STATUS == "UNSTABLE") {
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-                        echo 'git checkout branch main...'
-                        git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
+                        // echo 'git checkout branch main...'
+                        // git branch: 'main', credentialsId: 'harel-github-creadentials', url: 'https://github.com/kharelk/jenkins-multibrach-post-action'
 
                         echo 'Reverting 1 commit back...'
                         sh 'git reset --hard HEAD~1'
