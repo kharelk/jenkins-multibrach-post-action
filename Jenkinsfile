@@ -85,6 +85,9 @@ spec:
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         // echo 'git checkout branch main...'
+                        sh 'git config --global credential.helper cache'
+                        sh 'git config --global push.default simple'
+                        
                         checkout([
                             $class: 'GitSCM',
                             branches: [[name: "refs/heads/" + sourceBranch]],
