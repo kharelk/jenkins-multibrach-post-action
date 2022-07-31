@@ -81,7 +81,7 @@ spec:
                         currentBuild.result = "SUCCESS"
                         STAGE_FOUR_STATUS = "UNSTABLE"
                     }
-                    //test
+                    //test 1
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         // echo 'git checkout branch main...'
