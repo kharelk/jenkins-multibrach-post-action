@@ -79,7 +79,7 @@ spec:
                         STAGE_FOUR_STATUS = "UNSTABLE"
                         unstable_stage = env.STAGE_NAME
                     }
-                    // test unstable
+                    // test commit
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         functions.revertOneCommitBack()
