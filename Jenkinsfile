@@ -123,6 +123,15 @@ spec:
                         git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
                         echo "git_commit_user_email: " + git_commit_user_email
+
+
+
+                        // // Send emails to everyone involved
+                        // notification.sendCdEmailNotification (
+                        // buildStatus: currentBuild.result,
+                        // emailTo: git_commit_user_email,
+                        // lastCommitAuthorName: getCommitAuthorNameUnderline
+                        // )
                     }
                 }
             }
