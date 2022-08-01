@@ -82,7 +82,7 @@ spec:
                         STAGE_FOUR_STATUS = "UNSTABLE"
                         unstable_stage = env.STAGE_NAME
                     }
-                    // test commit reverting
+                    // test commit reverting test
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
