@@ -85,32 +85,28 @@ spec:
                     // test commit
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-                        // functions.revertOneCommitBack()
-                        load("functions.groovy").revertOneCommitBack()
+                        repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
+                        sourceBranch = "main"
+                        echo 'checkout branch '+sourcebranch
 
-                        // echo 'git checkout branch main...'
-                        
-                        // repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
-                        // sourceBranch = "main"
-                        
-                        // checkout([
-                        //     $class: 'GitSCM',
-                        //     branches: [[name: "refs/heads/" + sourceBranch]],
-                        //     userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
-                        // ])
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [[name: "refs/heads/" + sourceBranch]],
+                            userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
+                        ])
 
-                        // withCredentials([usernamePassword(
-                        // credentialsId: 'harel-github-creadentials',
-                        // passwordVariable: 'TOKEN',
-                        // usernameVariable: 'USER')]) {
-                        //     echo 'Reverting 1 commit back...'
-                        //     sh 'git checkout main'
-                        //     sh 'git reset --hard HEAD~1'
-                        //     echo 'push to main'
-                        //     // sh 'git push -f origin main'
-                        //     sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
-                        //     echo 'Revert done!'
-                        // }
+                        echo 'Reverting 1 commit back from branch: '+   +'...'
+                        withCredentials([usernamePassword(
+                        credentialsId: 'harel-github-creadentials',
+                        passwordVariable: 'TOKEN',
+                        usernameVariable: 'USER')]) {
+                            sh 'git checkout main'
+                            sh 'git reset --hard HEAD~1'
+                            echo 'push to main'
+                            // sh 'git push -f origin main'
+                            sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
+                            echo 'Revert done!'
+                        }
                     }                   
                 }
             }
