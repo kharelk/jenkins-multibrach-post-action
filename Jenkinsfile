@@ -112,7 +112,7 @@ spec:
 
 
                         USER_EMAILS = [
-                            harel_karavani: "harel.karavani@checkmarx.com",
+                            kharelk: "harel.karavani@checkmarx.com",
                             simon_shkilevich: "simon.shkilevich@checkmarx.com",
                         ]
                         
