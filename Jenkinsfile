@@ -85,10 +85,6 @@ spec:
                     // test commit reverting
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-
-
-
-                        //1) FIRST APPROACH
                         // repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
                         // sourceBranch = "main"
                         // echo 'checkout branch '+sourceBranch
@@ -111,7 +107,6 @@ spec:
                         //     sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
                         //     echo 'Revert done!'
                         // }
-                    
                     }                   
                 }
             }
