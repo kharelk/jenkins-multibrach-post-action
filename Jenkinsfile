@@ -38,7 +38,7 @@ spec:
             unstable_stage = ''
         }
     stages {
-            stage('Set Pipeline') {
+            stage('Set1') {
                 steps {
                     script {
                         USER_EMAILS = load("functions.groovy").getCbDevelopersEmails()
