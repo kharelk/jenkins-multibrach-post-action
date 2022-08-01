@@ -38,6 +38,24 @@ spec:
             unstable_stage = ''
         }
     stages {
+            stage('Set Pipeline') {
+                steps {
+                    script {
+                        USER_EMAILS = load("functions.groovy").getCbDevelopersEmails()
+                        
+                        if (env.CHANGE_AUTHOR_DISPLAY_NAME) { // otherwise the object is not defined
+                            getCommitAuthorNameUnderline = sh (
+                                script: "echo ${env.CHANGE_AUTHOR_DISPLAY_NAME} | sed 's| |_|g' | awk '{print tolower(\$0)}'",
+                                returnStdout: true).trim()
+                        } else {
+                            getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
+                        }
+                        git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
+                        echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
+                        echo "git_commit_user_email: " + git_commit_user_email
+                    }
+                }
+            }
         stage('stage-1') {
             steps {
                 script{
@@ -85,28 +103,45 @@ spec:
                     // test commit reverting
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-                            repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
-                            sourceBranch = "main"
-                            echo 'checkout branch '+sourceBranch
 
-                            checkout([
-                                $class: 'GitSCM',
-                                branches: [[name: "refs/heads/" + sourceBranch]],
-                                userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
-                            ])
 
-                            echo 'Reverting 1 commit back from branch: '+sourceBranch+'...'
-                            withCredentials([usernamePassword(
-                            credentialsId: 'harel-github-creadentials',
-                            passwordVariable: 'TOKEN',
-                            usernameVariable: 'USER')]) {
-                                sh 'git checkout main'
-                                sh 'git reset --hard HEAD~1'
-                                echo 'push to main'
-                                // sh 'git push -f origin main'
-                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
-                                echo 'Revert done!'
-                            }
+
+                        //1) FIRST APPROACH
+                        // repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
+                        // sourceBranch = "main"
+                        // echo 'checkout branch '+sourceBranch
+
+                        // checkout([
+                        //     $class: 'GitSCM',
+                        //     branches: [[name: "refs/heads/" + sourceBranch]],
+                        //     userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
+                        // ])
+
+                        // echo 'Reverting 1 commit back from branch: '+sourceBranch+'...'
+                        // withCredentials([usernamePassword(
+                        // credentialsId: 'harel-github-creadentials',
+                        // passwordVariable: 'TOKEN',
+                        // usernameVariable: 'USER')]) {
+                        //     sh 'git checkout main'
+                        //     sh 'git reset --hard HEAD~1'
+                        //     echo 'push to main'
+                        //     // sh 'git push -f origin main'
+                        //     sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
+                        //     echo 'Revert done!'
+                        // }
+
+                        // log.infoMessage("Sending email")
+                        // log.infoMessage("To: ${emailTo}")
+                        // log.infoMessage("body: ${body}")
+                        // log.infoMessage("subject: ${subject}")
+
+                        // emailext (
+                        //     subject: "${subject}" ,
+                        //     body: body,
+                        //     recipientProviders: [[$class: 'RequesterRecipientProvider']],
+                        //     to: emailTo
+                        // )
+                    
                     }                   
                 }
             }
