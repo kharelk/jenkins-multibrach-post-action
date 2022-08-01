@@ -21,13 +21,7 @@ def revertOneCommitBack() {
         sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
         echo 'Revert done!'
     }
-}    
-                    
-
-
-
-
-
+}
 
 def getCbDevelopersEmails(Map parameters = [:]) {
    def email = [:]
