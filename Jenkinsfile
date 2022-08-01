@@ -95,7 +95,7 @@ spec:
                             userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                         ])
 
-                        echo 'Reverting 1 commit back from branch: '+   +'...'
+                        echo 'Reverting 1 commit back from branch: '+               +'...'
                         withCredentials([usernamePassword(
                         credentialsId: 'harel-github-creadentials',
                         passwordVariable: 'TOKEN',
