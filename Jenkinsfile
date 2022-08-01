@@ -132,6 +132,7 @@ spec:
                         git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
                         echo "git_commit_user_email: " + git_commit_user_email
+                        echo "USER_EMAILS[kharelk] = "+ USER_EMAILS['kharelk']
 
 
 
