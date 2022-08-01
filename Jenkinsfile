@@ -129,10 +129,14 @@ spec:
                             
                             // getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
                         }
-                        git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
+
+                        // USER_EMAILS.find{ it.key == "{getCommitAuthorNameUnderline}" }?.value 
+                        // git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
+                        git_commit_user_email = USER_EMAILS.find{ it.key == "{getCommitAuthorNameUnderline}" }?.value 
+
                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
                         echo "git_commit_user_email: " + git_commit_user_email
-                        echo "USER_EMAILS[kharelk] = "+ USER_EMAILS['kharelk']
+                        // echo "USER_EMAILS[kharelk] = "+ USER_EMAILS['kharelk']
 
 
 
