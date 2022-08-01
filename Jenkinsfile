@@ -87,7 +87,7 @@ spec:
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
                         repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
                         sourceBranch = "main"
-                        echo 'checkout branch '+sourcebranch
+                        echo 'checkout branch '+sourceBranch
 
                         checkout([
                             $class: 'GitSCM',
