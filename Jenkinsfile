@@ -111,7 +111,10 @@ spec:
                         // }
 
 
-                        USER_EMAILS = load("functions.groovy").getCbDevelopersEmails()
+                        USER_EMAILS = [
+                            harel_karavani: "harel.karavani@checkmarx.com",
+                            simon_shkilevich: "simon.shkilevich@checkmarx.com",
+                        ]
                         
                         if (env.CHANGE_AUTHOR_DISPLAY_NAME) { // otherwise the object is not defined
                             getCommitAuthorNameUnderline = sh (
