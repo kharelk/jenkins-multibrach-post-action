@@ -32,7 +32,7 @@ def revertOneCommitBack() {
 def getCbDevelopersEmails(Map parameters = [:]) {
    def email = [:]
         email = [
-            harel_karavani: "harel.karavani@checkmarx.com"
+            harel_karavani: "harel.karavani@checkmarx.com",
             simon_shkilevich: "simon.shkilevich@checkmarx.com",
         ]
     return email
