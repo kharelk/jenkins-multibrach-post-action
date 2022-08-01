@@ -38,24 +38,6 @@ spec:
             unstable_stage = ''
         }
     stages {
-            stage('Set Pipeline') {
-                steps {
-                    script {
-                        USER_EMAILS = load("functions.groovy").getCbDevelopersEmails()
-                        
-                        if (env.CHANGE_AUTHOR_DISPLAY_NAME) { // otherwise the object is not defined
-                            getCommitAuthorNameUnderline = sh (
-                                script: "echo ${env.CHANGE_AUTHOR_DISPLAY_NAME} | sed 's| |_|g' | awk '{print tolower(\$0)}'",
-                                returnStdout: true).trim()
-                        } else {
-                            getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
-                        }
-                        git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
-                        echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
-                        echo "git_commit_user_email: " + git_commit_user_email
-                    }
-                }
-            }
         stage('stage-1') {
             steps {
                 script{
@@ -129,18 +111,6 @@ spec:
                         //     sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
                         //     echo 'Revert done!'
                         // }
-
-                        // log.infoMessage("Sending email")
-                        // log.infoMessage("To: ${emailTo}")
-                        // log.infoMessage("body: ${body}")
-                        // log.infoMessage("subject: ${subject}")
-
-                        // emailext (
-                        //     subject: "${subject}" ,
-                        //     body: body,
-                        //     recipientProviders: [[$class: 'RequesterRecipientProvider']],
-                        //     to: emailTo
-                        // )
                     
                     }                   
                 }
