@@ -85,7 +85,8 @@ spec:
                     // test commit
                     if( STAGE_FOUR_STATUS == "UNSTABLE") {
                         echo 'stage-4 is '+ STAGE_FOUR_STATUS
-                        functions.revertOneCommitBack()
+                        // functions.revertOneCommitBack()
+                        load("functions.groovy").revertOneCommitBack()
 
                         // echo 'git checkout branch main...'
                         
