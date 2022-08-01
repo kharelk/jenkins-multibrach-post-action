@@ -1,4 +1,4 @@
-def revertOneCommitBack(Map parameters = [:]) {
+def revertOneCommitBack() {
     repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
     sourceBranch = "main"
     echo 'checkout branch '+sourcebranch

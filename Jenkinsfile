@@ -1,3 +1,6 @@
+#!/bin/groovy
+
+
 pipeline {
     agent {
         kubernetes {
