@@ -121,7 +121,12 @@ spec:
                                 script: "echo ${env.CHANGE_AUTHOR_DISPLAY_NAME} | sed 's| |_|g' | awk '{print tolower(\$0)}'",
                                 returnStdout: true).trim()
                         } else {
-                            getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
+                            getCommitAuthorNameUnderline = sh(
+                                    script: "git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'",
+                                    returnStdout: true
+                                ).trim().replace('"', "");
+                            
+                            // getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
                         }
                         git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
