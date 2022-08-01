@@ -110,6 +110,7 @@ spec:
                         //     echo 'Revert done!'
                         // }
 
+                        def USER_EMAILS = [:]
 
                         USER_EMAILS = [
                             kharelk: "harel.karavani@checkmarx.com",
