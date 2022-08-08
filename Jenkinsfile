@@ -74,7 +74,7 @@ spec:
                     sh 'echo stage 4'
 
                     try {
-                        sh 'ecsfho stage 4'
+                        sh 'echo stage 4'
                         STAGE_FOUR_STATUS = "SUCCESS"
                     } catch (Exception e) {
                         unstable("[ERROR]: ${STAGE_NAME} UNSTABLE!")
@@ -110,32 +110,33 @@ spec:
                         //     echo 'Revert done!'
                         // }
 
-                        def USER_EMAILS = [:]
+//                         def USER_EMAILS = [:]
 
-                        USER_EMAILS = [
-                            kharelk: "harel.karavani@checkmarx.com",
-                            simon_shkilevich: "simon.shkilevich@checkmarx.com",
-                        ]
+//                         USER_EMAILS = [
+//                             kharelk: "harel.karavani@checkmarx.com",
+//                             simon_shkilevich: "simon.shkilevich@checkmarx.com",
+//                         ]
                         
-                        if (env.CHANGE_AUTHOR_DISPLAY_NAME) { // otherwise the object is not defined
-                            getCommitAuthorNameUnderline = sh (
-                                script: "echo ${env.CHANGE_AUTHOR_DISPLAY_NAME} | sed 's| |_|g' | awk '{print tolower(\$0)}'",
-                                returnStdout: true).trim()
-                        } else {
-                            getCommitAuthorNameUnderline = sh(
-                                    script: "git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'",
-                                    returnStdout: true
-                                ).trim().replace('"', "");
+//                         if (env.CHANGE_AUTHOR_DISPLAY_NAME) { // otherwise the object is not defined
+//                             getCommitAuthorNameUnderline = sh (
+//                                 script: "echo ${env.CHANGE_AUTHOR_DISPLAY_NAME} | sed 's| |_|g' | awk '{print tolower(\$0)}'",
+//                                 returnStdout: true).trim()
+//                         } else {
+//                             getCommitAuthorNameUnderline = sh(
+//                                     script: "git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'",
+//                                     returnStdout: true
+//                                 ).trim().replace('"', "");
                             
-                            // getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
-                        }
+//                             // getCommitAuthorNameUnderline = common.commandExecutionShell("git log -1 --pretty=format:'%an' | sed 's| |_|g' | awk '{print tolower(\$0)}'").trim()
+//                         }
 
                         // USER_EMAILS.find{ it.key == "{getCommitAuthorNameUnderline}" }?.value 
                         // git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
-                        git_commit_user_email = USER_EMAILS.find{ it.key == getCommitAuthorNameUnderline.toString() }?.value 
+//                         git_commit_user_email = USER_EMAILS.find{ it.key == getCommitAuthorNameUnderline.toString() }?.value 
 
-                        echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
-                        echo "git_commit_user_email: " + git_commit_user_email
+//                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
+//                         echo "git_commit_user_email: " + git_commit_user_email
+                        
                         // echo "USER_EMAILS[kharelk] = "+ USER_EMAILS['kharelk']
 
 
