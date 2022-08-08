@@ -15,7 +15,7 @@ spec:
   - name: ubuntu
     image: ubuntu:latest
     command: 
-    - sleep infinity
+    - sleep 
 '''
         }
     }
