@@ -23,6 +23,8 @@ spec:
     image: python:3.6.10-slim-stretch
     command:
     - cat
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
     tty: true
 '''
         }
