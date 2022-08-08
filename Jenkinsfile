@@ -14,7 +14,8 @@ spec:
   containers:
   - name: ubuntu
     image: ubuntu:latest
-    command: sleep infinity
+    command: 
+    - sleep infinity
 '''
         }
     }
