@@ -14,8 +14,9 @@ spec:
   containers:
   - name: ubuntu
     image: ubuntu:latest
-    command: 
-    - sleep 
+    # Just spin & wait forever
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
 '''
         }
     }
