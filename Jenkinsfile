@@ -16,13 +16,13 @@ spec:
     image: node:14
     command:
     - cat
-    - tail -f /dev/null
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
     tty: true
   - name: python
     image: python:3.6.10-slim-stretch
     command:
     - cat
-    - tail -f /dev/null
     tty: true
 '''
         }
