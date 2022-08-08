@@ -14,8 +14,7 @@ spec:
   containers:
   - name: ubuntu
     image: ubuntu:latest
-    command: [ "/bin/bash", "-c", "--" ]
-    args: [ "while true; do sleep 30; done;" ]
+    command: sleep infinity
 '''
         }
     }
