@@ -12,20 +12,10 @@ metadata:
     jenkins: slave
 spec:
   containers:
-  - name: node
-    image: node:14
-    command:
-    - cat
+  - name: ubuntu
+    image: ubuntu:latest
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
-    tty: true
-  - name: python
-    image: python:3.6.10-slim-stretch
-    command:
-    - cat
-    command: [ "/bin/bash", "-c", "--" ]
-    args: [ "while true; do sleep 30; done;" ]
-    tty: true
 '''
         }
     }
