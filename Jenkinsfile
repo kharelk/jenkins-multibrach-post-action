@@ -153,6 +153,7 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 5'
                     sh 'ls'
+                    sh 'sleep 999999'
                 }
             }
         }
