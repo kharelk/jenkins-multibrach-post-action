@@ -16,11 +16,13 @@ spec:
     image: node:14
     command:
     - cat
+    - tail -f /dev/null
     tty: true
   - name: python
     image: python:3.6.10-slim-stretch
     command:
     - cat
+    - tail -f /dev/null
     tty: true
 '''
         }
@@ -72,7 +74,8 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
-
+                    sh 'sleep 5'
+                    
                     try {
                         sh 'echo stage 4'
                         STAGE_FOUR_STATUS = "SUCCESS"
@@ -155,6 +158,7 @@ spec:
             steps {
                 script{
                     FAILED_STAGE = env.STAGE_NAME
+                    sh 'sleep 5000'
                     sh 'echo stage 5'
                     sh 'ls'
                 }
