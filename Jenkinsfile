@@ -158,7 +158,6 @@ spec:
             steps {
                 script{
                     FAILED_STAGE = env.STAGE_NAME
-                    sh 'sleep 5000'
                     sh 'echo stage 5'
                     sh 'ls'
                 }
