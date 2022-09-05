@@ -129,7 +129,7 @@ spec:
 
                         USER_EMAILS.find{ it.key == "{getCommitAuthorNameUnderline}" }?.value 
                         git_commit_user_email = USER_EMAILS[getCommitAuthorNameUnderline]
-                        git_commit_user_email = USER_EMAILS.find{ it.key == getCommitAuthorNameUnderline.toString() }?.value 
+                        // git_commit_user_email = USER_EMAILS.find{ it.key == getCommitAuthorNameUnderline.toString() }?.value 
 
                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
                         echo "git_commit_user_email: " + git_commit_user_email
