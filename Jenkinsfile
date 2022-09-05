@@ -139,7 +139,7 @@ spec:
 
 
                         // Send emails to everyone involved
-                        load("notification.groovy").sendEmailNotification(git_commit_user_email, "subject", "body")
+                        load("notification.groovy").sendEmailNotification("harel.karavani@checkmarx.com", "subject", "body")
 
 
                         // load("notification.groovy").sendCdEmailNotification(
