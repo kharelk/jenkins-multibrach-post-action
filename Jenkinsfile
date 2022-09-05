@@ -139,10 +139,10 @@ spec:
 
 
                         // Send emails to everyone involved
-                        load("notification.groovy").sendCdEmailNotification(
-                        buildStatus: "test",
-                        emailTo: git_commit_user_email,
-                        lastCommitAuthorName: getCommitAuthorNameUnderline
+                        load("notification.groovy").sendEmailNotification(
+                            buildStatus: "buildStatus-test",
+                            emailTo: git_commit_user_email,
+                            lastCommitAuthorName: getCommitAuthorNameUnderline
                         )
 
 
