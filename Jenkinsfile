@@ -142,13 +142,16 @@ spec:
                         // load("notification.groovy").sendEmailNotification("harel.karavani@checkmarx.com", "subject", "body")
 
 
+
+
                         emailext (
                             subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
                             body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
                                 <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-                            recipientProviders: [[$class: 'harel.karavani@checkmarx.com']]
+                            recipientProviders: [[$class: 'RequesterRecipientProvider']],
+                            to: "harel.karavani@checkmarx.com"
                         )
-
+                        
 
                         // load("notification.groovy").sendCdEmailNotification(
                         //     buildStatus: "buildStatus-test",
