@@ -134,16 +134,25 @@ spec:
                         echo "getCommitAuthorNameUnderline: " + getCommitAuthorNameUnderline
                         echo "git_commit_user_email: " + git_commit_user_email
                         
-                        echo "USER_EMAILS[kharelk] = "+ USER_EMAILS['kharelk']
+                        // echo "USER_EMAILS[kharelk] = "+ USER_EMAILS['kharelk']
 
 
 
                         // Send emails to everyone involved
-                        notification.sendCdEmailNotification (
-                        buildStatus: currentBuild.result,
-                        emailTo: git_commit_user_email,
-                        lastCommitAuthorName: getCommitAuthorNameUnderline
+                        load("notification.groovy").sendCdEmailNotification(
+                            buildStatus: currentBuild.result,
+                            emailTo: git_commit_user_email,
+                            lastCommitAuthorName: getCommitAuthorNameUnderline
                         )
+
+
+
+                        
+                        // notification.sendCdEmailNotification (
+                        // buildStatus: currentBuild.result,
+                        // emailTo: git_commit_user_email,
+                        // lastCommitAuthorName: getCommitAuthorNameUnderline
+                        // )
                 }
             }
         }
