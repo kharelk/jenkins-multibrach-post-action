@@ -87,7 +87,7 @@ spec:
                         sh 'git checkout develop'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000003" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000004" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for main branch'"
