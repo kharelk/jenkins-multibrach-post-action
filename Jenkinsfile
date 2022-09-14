@@ -76,9 +76,8 @@ spec:
                     echo 'checkout branch '+sourceBranch
                     checkout([
                         $class: 'GitSCM',
-                        branches: scm.branches,
+                        branches: [[name: "refs/heads/" + sourceBranch], [name: "refs/heads/" + sourceBranch_dev]],
                         extensions: scm.extensions + [[$class: 'LocalBranch'], [$class: 'WipeWorkspace']],
-                        // branches: [[name: "refs/heads/" + sourceBranch]],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
@@ -86,10 +85,14 @@ spec:
                     credentialsId: 'harel-github-creadentials',
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
+                        sh """
+                            git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+                            git fetch --all
+                        """
                         sh 'git checkout main'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000009" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000010" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for main branch'"
@@ -104,10 +107,10 @@ spec:
                             
                         }
 
-                        sh "git branch -u origin/test test"
+                        // sh "git branch -u origin/test test"
                         sh 'git checkout test'
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000009" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000010" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for test branch'"
