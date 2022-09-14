@@ -76,7 +76,9 @@ spec:
                     echo 'checkout branch '+sourceBranch
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: "refs/heads/" + sourceBranch]],
+                        branches: scm.branches,
+                        extensions: scm.extensions + [[$class: 'LocalBranch'], [$class: 'WipeWorkspace']],
+                        // branches: [[name: "refs/heads/" + sourceBranch]],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
@@ -84,10 +86,10 @@ spec:
                     credentialsId: 'harel-github-creadentials',
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
-                        // sh 'git checkout main'
+                        sh 'git checkout main'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000008" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000009" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for main branch'"
@@ -102,7 +104,127 @@ spec:
                             
                         }
 
+                        sh "git branch -u origin/test test"
+                        sh 'git checkout test'
+                        dir('overlays'){
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000009" + "\\'/\" dev.yaml"
+                            sh "git add dev.yaml"
+                            try {
+                                sh "git commit -m 'commit for test branch'"
+                            } catch(Exception e) {
+                                log.infoMessage(e.toString())
+                            }
+                            retry(5) {
+                                sleep(2)
+                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"                                
+                                // sh "git push origin HEAD:"+ sourceBranch
+                            }
+                            
+                        }
+
                     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    // echo 'checkout branch '+sourceBranch
+                    // checkout([
+                    //     $class: 'GitSCM',
+                    //     branches: [[name: "refs/heads/" + sourceBranch]],
+                    //     userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
+                    // ])
+
+                    // withCredentials([usernamePassword(
+                    // credentialsId: 'harel-github-creadentials',
+                    // passwordVariable: 'TOKEN',
+                    // usernameVariable: 'USER')]) {
+                    //     // sh 'git checkout main'
+
+                    //     dir('overlays'){
+                    //         sh "sed -i \"s/tag: .*\$/tag: \\'" + "000008" + "\\'/\" dev.yaml"
+                    //         sh "git add dev.yaml"
+                    //         try {
+                    //             sh "git commit -m 'commit for main branch'"
+                    //         } catch(Exception e) {
+                    //             log.infoMessage(e.toString())
+                    //         }
+                    //         retry(5) {
+                    //             sleep(2)
+                    //             sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"                                
+                    //             // sh "git push origin HEAD:"+ sourceBranch
+                    //         }
+                            
+                    //     }
+
+                    // }
+
+
+
+
+
+
+                    // echo 'checkout branch '+sourceBranch_dev
+                    // checkout([
+                    //     $class: 'GitSCM',
+                    //     branches: [ [name: "refs/heads/" + sourceBranch_dev]],
+                    //     userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
+                    // ])
+
+                    // withCredentials([usernamePassword(
+                    // credentialsId: 'harel-github-creadentials',
+                    // passwordVariable: 'TOKEN',
+                    // usernameVariable: 'USER')]) {
+                    //     sh 'git checkout test'
+
+                    //     dir('overlays'){
+                    //         sh "sed -i \"s/tag: .*\$/tag: \\'" + "000008" + "\\'/\" dev.yaml"
+                    //         sh "git add dev.yaml"
+                    //         try {
+                    //             sh "git commit -m 'commit for test branch'"
+                    //         } catch(Exception e) {
+                    //             log.infoMessage(e.toString())
+                    //         }
+                    //         retry(5) {
+                    //             sleep(2)
+                    //             sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"
+                                
+                    //             // sh "git push origin HEAD:"+ sourceBranch
+                    //         }
+                    //     }
+                    // }
+
+
+
+
+
+
+
+
+
 
                 }
             }
@@ -113,40 +235,6 @@ spec:
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 5'
 
-                    // CHECKOUT AND PUSH UPDATE TO MAIN BRANCH AND DEVELOP BRANCH
-                    repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
-                    sourceBranch = "main"
-                    sourceBranch_dev = "test"
-
-                    echo 'checkout branch '+sourceBranch_dev
-                        checkout([
-                            $class: 'GitSCM',
-                            branches: [ [name: "refs/heads/" + sourceBranch_dev]],
-                            userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
-                        ])
-
-                        withCredentials([usernamePassword(
-                        credentialsId: 'harel-github-creadentials',
-                        passwordVariable: 'TOKEN',
-                        usernameVariable: 'USER')]) {
-                            sh 'git checkout test'
-
-                            dir('overlays'){
-                                sh "sed -i \"s/tag: .*\$/tag: \\'" + "000008" + "\\'/\" dev.yaml"
-                                sh "git add dev.yaml"
-                                try {
-                                    sh "git commit -m 'commit for test branch'"
-                                } catch(Exception e) {
-                                    log.infoMessage(e.toString())
-                                }
-                                retry(5) {
-                                    sleep(2)
-                                    sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"
-                                    
-                                    // sh "git push origin HEAD:"+ sourceBranch
-                                }
-                            }
-                        }
                     // sh 'ls'
                     // sh 'sleep 999999'
                 }
