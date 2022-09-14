@@ -102,7 +102,7 @@ spec:
                             }
                             
                         }
-                        sh 'git fetch origin develop'
+                        sh 'git fetch origin test'
 
                         sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
