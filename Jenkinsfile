@@ -76,7 +76,7 @@ spec:
                     echo 'checkout branch '+sourceBranch
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: "refs/heads/" + sourceBranch]],
+                        branches: [[name: "refs/heads/" + sourceBranch], [name: "refs/heads/" + sourceBranch_dev]],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
