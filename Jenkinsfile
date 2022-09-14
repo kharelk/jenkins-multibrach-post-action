@@ -71,12 +71,12 @@ spec:
                     // CHECKOUT AND PUSH UPDATE TO MAIN BRANCH AND DEVELOP BRANCH
                     repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
                     sourceBranch = "main"
-                    sourceBranch_dev = "develop"
+                    sourceBranch_dev = "test"
 
                     echo 'checkout branch '+sourceBranch
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: "refs/heads/" + sourceBranch_dev], [name: "refs/heads/" + sourceBranch]],
+                        branches: [[name: "refs/heads/" + sourceBranch], [name: "refs/heads/" + sourceBranch_dev]],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
@@ -96,8 +96,8 @@ spec:
                             }
                             retry(5) {
                                 sleep(2)
-                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:develop"
                                 sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"
+                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"
                                 
                                 // sh "git push origin HEAD:"+ sourceBranch
                             }
