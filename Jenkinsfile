@@ -96,13 +96,14 @@ spec:
                             }
                             retry(5) {
                                 sleep(2)
-                                sh "git push origin HEAD:"+ sourceBranch
+                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"
+                                // sh "git push origin HEAD:"+ sourceBranch
                             }
                         }  
 
                         // echo 'Push to main'
                         // // sh 'git push -f origin main'
-                        // sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git main"
+                        // sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"
                         // echo 'Push done!'
                     }
                     
