@@ -90,7 +90,7 @@ spec:
                             sh "sed -i \"s/tag: .*\$/tag: \\'" + "000002" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
-                                sh "git commit -m '""commit for main branch""'"
+                                sh "git commit -m 'commit for main branch'"
                             } catch(Exception e) {
                                 log.infoMessage(e.toString())
                             }
