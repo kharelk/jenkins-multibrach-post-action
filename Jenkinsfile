@@ -76,8 +76,8 @@ spec:
                     echo 'checkout branch '+sourceBranch
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: "refs/heads/" + sourceBranch], [name: "refs/heads/" + sourceBranch_dev]],
-                        extensions: scm.extensions + [[$class: 'LocalBranch'], [$class: 'WipeWorkspace']],
+                        branches: [[name: "refs/heads/" + sourceBranch]],
+                        // extensions: scm.extensions + [[$class: 'LocalBranch'], [$class: 'WipeWorkspace']],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
@@ -92,10 +92,10 @@ spec:
                         sh 'git checkout main'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000010" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000011" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
-                                sh "git commit -m 'commit for main branch'"
+                                sh "git commit -m 'commit for main branch 01'"
                             } catch(Exception e) {
                                 log.infoMessage(e.toString())
                             }
@@ -108,12 +108,12 @@ spec:
                         }
 
                         // sh "git branch -u origin/test test"
-                        sh 'git checkout test'
+                        sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000010" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000011" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
-                                sh "git commit -m 'commit for test branch'"
+                                sh "git commit -m 'commit for test branch 01'"
                             } catch(Exception e) {
                                 log.infoMessage(e.toString())
                             }
