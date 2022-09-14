@@ -107,7 +107,6 @@ spec:
                             
                         }
 
-                        // sh "git branch -u origin/test test"
                         sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
                             sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000011" + "\\'/\" dev.yaml"
