@@ -76,7 +76,7 @@ spec:
                     echo 'checkout branch '+sourceBranch
                     checkout([
                         $class: 'GitSCM',
-                        branches: [[name: "refs/heads/" + sourceBranch], [name: "refs/heads/" + sourceBranch_dev]],
+                        branches: [[name: "refs/heads/" + sourceBranch]],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
@@ -87,7 +87,7 @@ spec:
                         // sh 'git checkout main'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000005" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000006" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for main branch'"
@@ -96,12 +96,44 @@ spec:
                             }
                             retry(5) {
                                 sleep(2)
-                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"
+                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"                                
+                                // sh "git push origin HEAD:"+ sourceBranch
+                            }
+                            
+
+
+
+
+
+
+
+                        echo 'checkout branch '+sourceBranch_dev
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [ [name: "refs/heads/" + sourceBranch_dev]],
+                            userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
+                        ])
+
+                        withCredentials([usernamePassword(
+                        credentialsId: 'harel-github-creadentials',
+                        passwordVariable: 'TOKEN',
+                        usernameVariable: 'USER')]) {
+                            sh 'git checkout develop'
+
+                        dir('overlays'){
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000006" + "\\'/\" dev.yaml"
+                            sh "git add dev.yaml"
+                            try {
+                                sh "git commit -m 'commit for test branch'"
+                            } catch(Exception e) {
+                                log.infoMessage(e.toString())
+                            }
+                            retry(5) {
+                                sleep(2)
                                 sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"
                                 
                                 // sh "git push origin HEAD:"+ sourceBranch
                             }
-                            
                         // sh 'git checkout develop'
 
                         // dir('overlays'){
