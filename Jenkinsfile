@@ -85,10 +85,6 @@ spec:
                     credentialsId: 'harel-github-creadentials',
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
-                        sh """
-                            git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
-                            git fetch --all
-                        """
                         sh 'git checkout main'
 
                         dir('overlays'){
@@ -106,6 +102,7 @@ spec:
                             }
                             
                         }
+                        sh 'git fetch origin develop'
 
                         sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
