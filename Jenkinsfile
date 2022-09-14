@@ -84,7 +84,7 @@ spec:
                     credentialsId: 'harel-github-creadentials',
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
-                        sh 'git checkout main'
+                        sh 'git checkout develop'
 
                         dir('overlays'){
                             sh "sed -i \"s/tag: .*\$/tag: \\'" + "000003" + "\\'/\" dev.yaml"
@@ -96,8 +96,8 @@ spec:
                             }
                             retry(5) {
                                 sleep(2)
-                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"
                                 sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:develop"
+                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"
                                 
                                 // sh "git push origin HEAD:"+ sourceBranch
                             }
