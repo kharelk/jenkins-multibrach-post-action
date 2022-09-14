@@ -84,7 +84,7 @@ spec:
                     credentialsId: 'harel-github-creadentials',
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
-                        sh 'git checkout main'
+                        // sh 'git checkout main'
 
                         dir('overlays'){
                             sh "sed -i \"s/tag: .*\$/tag: \\'" + "000005" + "\\'/\" dev.yaml"
