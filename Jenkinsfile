@@ -87,7 +87,7 @@ spec:
                         // sh 'git checkout main'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000006" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000007" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for main branch'"
@@ -118,10 +118,10 @@ spec:
                         credentialsId: 'harel-github-creadentials',
                         passwordVariable: 'TOKEN',
                         usernameVariable: 'USER')]) {
-                            sh 'git checkout develop'
+                            sh 'git checkout test'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000006" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "000007" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for test branch'"
