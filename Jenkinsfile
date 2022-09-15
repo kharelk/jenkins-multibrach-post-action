@@ -83,7 +83,7 @@ spec:
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
                         sh """
-                            git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+                            git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/test'
                             git fetch origin test
                             git checkout main
                         """
