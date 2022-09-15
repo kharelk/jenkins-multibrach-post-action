@@ -88,7 +88,7 @@ spec:
                         """
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000014" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000015" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for main branch 03'"
@@ -108,7 +108,7 @@ spec:
 
                         sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000014" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000015" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
                                 sh "git commit -m 'commit for test branch 03'"
