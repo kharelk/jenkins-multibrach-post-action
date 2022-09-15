@@ -82,8 +82,9 @@ spec:
                     credentialsId: 'harel-github-creadentials',
                     passwordVariable: 'TOKEN',
                     usernameVariable: 'USER')]) {
+                            // git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/test'
                         sh """
-                            git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/test'
+                            git config remote.origin.fetch '+refs/heads/test:refs/remotes/origin/test'
                             git fetch origin test
                             git checkout main
                         """
