@@ -1,6 +1,5 @@
 #!/bin/groovy
 
-
 pipeline {
     agent {
         kubernetes {
@@ -30,7 +29,6 @@ spec:
             STAGE_TWO_STATUS = ''
             STAGE_THREE_STATUS = ''
             STAGE_FOUR_STATUS = ''
-            // unstable_stage = ''
         }
     stages {
         stage('stage-1') {
@@ -67,7 +65,7 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
-                
+
                     // CHECKOUT AND PUSH UPDATE TO MAIN BRANCH AND DEVELOP BRANCH
                     repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
                     sourceBranch = "main"
@@ -77,7 +75,6 @@ spec:
                     checkout([
                         $class: 'GitSCM',
                         branches: [[name: "refs/heads/" + sourceBranch]],
-                        // extensions: scm.extensions + [[$class: 'LocalBranch'], [$class: 'WipeWorkspace']],
                         userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
                     ])
 
@@ -88,146 +85,38 @@ spec:
                         sh """
                             git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
                             git fetch origin test
+                            git checkout main
                         """
-                        sh 'git checkout main'
 
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000013" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000014" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
-                                sh "git commit -m 'commit for main branch 02'"
+                                sh "git commit -m 'commit for main branch 03'"
                             } catch(Exception e) {
                                 log.infoMessage(e.toString())
                             }
                             retry(5) {
                                 sleep(2)
                                 sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"                                
-                                // sh "git push origin HEAD:"+ sourceBranch
                             }
-                            
                         }
 
                         sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000013" + "\\'/\" dev.yaml"
+                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000014" + "\\'/\" dev.yaml"
                             sh "git add dev.yaml"
                             try {
-                                sh "git commit -m 'commit for test branch 02'"
+                                sh "git commit -m 'commit for test branch 03'"
                             } catch(Exception e) {
                                 log.infoMessage(e.toString())
                             }
                             retry(5) {
                                 sleep(2)
                                 sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"                                
-                                // sh "git push origin HEAD:"+ sourceBranch
                             }
-                            
                         }
-
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    // echo 'checkout branch '+sourceBranch
-                    // checkout([
-                    //     $class: 'GitSCM',
-                    //     branches: [[name: "refs/heads/" + sourceBranch]],
-                    //     userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
-                    // ])
-
-                    // withCredentials([usernamePassword(
-                    // credentialsId: 'harel-github-creadentials',
-                    // passwordVariable: 'TOKEN',
-                    // usernameVariable: 'USER')]) {
-                    //     // sh 'git checkout main'
-
-                    //     dir('overlays'){
-                    //         sh "sed -i \"s/tag: .*\$/tag: \\'" + "000008" + "\\'/\" dev.yaml"
-                    //         sh "git add dev.yaml"
-                    //         try {
-                    //             sh "git commit -m 'commit for main branch'"
-                    //         } catch(Exception e) {
-                    //             log.infoMessage(e.toString())
-                    //         }
-                    //         retry(5) {
-                    //             sleep(2)
-                    //             sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"                                
-                    //             // sh "git push origin HEAD:"+ sourceBranch
-                    //         }
-                            
-                    //     }
-
-                    // }
-
-
-
-
-
-
-                    // echo 'checkout branch '+sourceBranch_dev
-                    // checkout([
-                    //     $class: 'GitSCM',
-                    //     branches: [ [name: "refs/heads/" + sourceBranch_dev]],
-                    //     userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
-                    // ])
-
-                    // withCredentials([usernamePassword(
-                    // credentialsId: 'harel-github-creadentials',
-                    // passwordVariable: 'TOKEN',
-                    // usernameVariable: 'USER')]) {
-                    //     sh 'git checkout test'
-
-                    //     dir('overlays'){
-                    //         sh "sed -i \"s/tag: .*\$/tag: \\'" + "000008" + "\\'/\" dev.yaml"
-                    //         sh "git add dev.yaml"
-                    //         try {
-                    //             sh "git commit -m 'commit for test branch'"
-                    //         } catch(Exception e) {
-                    //             log.infoMessage(e.toString())
-                    //         }
-                    //         retry(5) {
-                    //             sleep(2)
-                    //             sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"
-                                
-                    //             // sh "git push origin HEAD:"+ sourceBranch
-                    //         }
-                    //     }
-                    // }
-
-
-
-
-
-
-
-
-
-
                 }
             }
         }
@@ -236,9 +125,6 @@ spec:
                 script{
                     FAILED_STAGE = env.STAGE_NAME
                     sh 'echo stage 5'
-
-                    // sh 'ls'
-                    // sh 'sleep 999999'
                 }
             }
         }
@@ -246,7 +132,6 @@ spec:
     post {
         always {
             echo 'post always - will always happens'
-            // deleteDir() /* clean up our workspace */
         }
         success {
             echo 'succeeded!'
@@ -254,13 +139,10 @@ spec:
         unstable {
             script{
                 echo 'unstable :/'
-                // echo "unstable stage name: ${unstable_stage}"
             }
-            
         }
         failure {
             echo 'failed :('
-            // echo "Failed stage name: ${FAILED_STAGE}"
         }
     }
 }
