@@ -84,8 +84,6 @@ spec:
                     usernameVariable: 'USER')]) {
                             // git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/test'
                         sh """
-                            git config remote.origin.fetch '+refs/heads/test:refs/remotes/origin/test'
-                            git fetch origin test
                             git checkout main
                         """
 
@@ -102,6 +100,11 @@ spec:
                                 sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"                                
                             }
                         }
+
+                        sh """
+                            git config remote.origin.fetch '+refs/heads/test:refs/remotes/origin/test'
+                            git fetch origin test
+                        """
 
                         sh 'git checkout '+sourceBranch_dev
                         dir('overlays'){
