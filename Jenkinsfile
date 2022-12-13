@@ -65,62 +65,6 @@ spec:
             steps {
                 script{
                     sh 'echo stage 4'
-
-                    // CHECKOUT AND PUSH UPDATE TO MAIN BRANCH AND DEVELOP BRANCH
-                    repo = "https://github.com/kharelk/jenkins-multibrach-post-action"                    
-                    sourceBranch = "main"
-                    sourceBranch_dev = "test"
-
-                    echo 'checkout branch '+sourceBranch
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "refs/heads/" + sourceBranch]],
-                        userRemoteConfigs: [[credentialsId: 'harel-github-creadentials', url: repo]],
-                    ])
-
-                    withCredentials([usernamePassword(
-                    credentialsId: 'harel-github-creadentials',
-                    passwordVariable: 'TOKEN',
-                    usernameVariable: 'USER')]) {
-                            // git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/test'
-                        sh """
-                            git checkout main
-                        """
-
-                        dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000015" + "\\'/\" dev.yaml"
-                            sh "git add dev.yaml"
-                            try {
-                                sh "git commit -m 'commit for main branch 03'"
-                            } catch(Exception e) {
-                                log.infoMessage(e.toString())
-                            }
-                            retry(5) {
-                                sleep(2)
-                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:main"                                
-                            }
-                        }
-
-                        sh """
-                            git config remote.origin.fetch '+refs/heads/test:refs/remotes/origin/test'
-                            git fetch origin test
-                        """
-
-                        sh 'git checkout '+sourceBranch_dev
-                        dir('overlays'){
-                            sh "sed -i \"s/tag: .*\$/tag: \\'" + "0000015" + "\\'/\" dev.yaml"
-                            sh "git add dev.yaml"
-                            try {
-                                sh "git commit -m 'commit for test branch 03'"
-                            } catch(Exception e) {
-                                log.infoMessage(e.toString())
-                            }
-                            retry(5) {
-                                sleep(2)
-                                sh "git push -f https://${USER}:${TOKEN}@github.com/kharelk/jenkins-multibrach-post-action.git HEAD:test"                                
-                            }
-                        }
-                    }
                 }
             }
         }
