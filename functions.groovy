@@ -32,3 +32,24 @@ def getCbDevelopersEmails(Map parameters = [:]) {
     return email
 }
 
+def getCbDevelopersSlackUsers(Map parameters = [:]) {
+   def slackUser = [:]
+        slackUser = [
+            ilanshtok: "Ilans"
+            valeryb: "Valery Boltavsky",
+            valbol: "Valery Boltavsky",
+            'Nir_Cohen': "Nir Cohen",
+            li0nbelenky: "Arie Belenky"
+            'ronits_cx': "Ronit Steinberg",
+            'Ronit Steinberg': "Ronit Steinberg",
+            miriam_horlick: "Miriam Horlick",
+            miriamso:  "Miriam Horlick",
+            'Rivka Reich': "Rivka Reich",
+            rivkareich: "Rivka Reich",
+            cxsimon: "Simon Shkilevich",
+            chedvakatze: "Chedva K",
+            harelkaravani: "Harel Karavani",
+            'Harel Karavani': "Harel Karavani"
+        ]
+    return slackUser
+}
